@@ -15,8 +15,8 @@ import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 import Badge from '@mui/material/Badge';
-
-const server_url = "http://localhost:8000";
+import servers from '../enviorment';
+const server_url = `${servers.prod}`;
 
 const connections = {};
 const peerConfigConnection = {
