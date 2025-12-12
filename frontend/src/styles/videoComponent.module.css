@@ -1,0 +1,448 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Lobby Container */
+.lobbyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+}
+
+.lobbyContainer h2 {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.previewVideo {
+    margin-top: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 640px;
+    width: 100%;
+}
+
+.previewVideo video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Main Meeting Container */
+.meetVideoContainer {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: #0a0e27;
+    overflow: hidden;
+}
+
+/* Local User Video (Small Preview) */
+.meetUserVideo {
+    position: fixed;
+    bottom: 100px;
+    left: 20px;
+    height: 200px;
+    width: 280px;
+    border-radius: 15px;
+    border: 3px solid #667eea;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    object-fit: cover;
+    transition: all 0.3s ease;
+    background-color: #1a1f3a;
+    display: block;
+}
+
+.meetUserVideo:hover {
+    transform: scale(1.05);
+    border-color: #764ba2;
+}
+
+/* Button Container */
+.buttonContainer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+    z-index: 20;
+}
+
+.buttonContainer button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.buttonContainer button:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.buttonContainer svg {
+    font-size: 2rem;
+}
+
+/* Conference View - Grid Layout */
+.conferenceView {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    align-content: start;
+}
+
+/* Single grid item might need to be centered */
+.conferenceView:has(.participantVideo:only-child) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Individual Participant Video */
+.participantVideo {
+    position: relative;
+    background-color: #1a1f3a;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    aspect-ratio: 16 / 9;
+    min-height: 200px;
+}
+
+.participantVideo video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.participantName {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    z-index: 5;
+}
+
+/* ==================== CHAT ROOM ==================== */
+
+.chatRoom {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: calc(100vh - 140px);
+    width: 380px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    z-index: 150;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.chatHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px 20px 0 0;
+    color: white;
+}
+
+.chatHeader h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.chatHeader button {
+    color: white;
+}
+
+.chatHeader button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Chat Messages Display */
+.chattingDisplay {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #f8f9fa;
+}
+
+.chattingDisplay::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chattingDisplay::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chattingDisplay::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+}
+
+.chattingDisplay::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* No Messages State */
+.noMessages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #a0aec0;
+    text-align: center;
+}
+
+.noMessages p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+}
+
+.noMessages p:first-of-type {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #718096;
+}
+
+/* Message Containers */
+.messageLeft,
+.messageRight {
+    display: flex;
+    margin-bottom: 8px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.messageLeft {
+    justify-content: flex-start;
+}
+
+.messageRight {
+    justify-content: flex-end;
+}
+
+/* Message Bubble */
+.messageBubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+}
+
+.messageLeft .messageBubble {
+    background: linear-gradient(135deg, #e3e8ef 0%, #d5dce6 100%);
+    border-bottom-left-radius: 4px;
+}
+
+.messageRight .messageBubble {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.messageSender {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.messageRight .messageSender {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.messageLeft .messageSender {
+    color: #4a5568;
+}
+
+.messageText {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
+    word-break: break-word;
+}
+
+/* Chat Input Area */
+.chattingArea {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.chattingArea .MuiTextField-root {
+    flex: 1;
+}
+
+.chattingArea .MuiOutlinedInput-root {
+    border-radius: 12px;
+    background: #f7fafc;
+}
+
+.chattingArea .MuiOutlinedInput-root:hover {
+    background: #edf2f7;
+}
+
+.chattingArea .MuiOutlinedInput-root.Mui-focused {
+    background: white;
+}
+
+.sendButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    padding: 10px !important;
+    transition: all 0.3s ease !important;
+}
+
+.sendButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.sendButton:disabled {
+    opacity: 0.5;
+    transform: scale(1);
+}
+
+/* Scrollbar Styling */
+.conferenceView::-webkit-scrollbar {
+    width: 8px;
+}
+
+.conferenceView::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.conferenceView::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.conferenceView::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .conferenceView {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .meetUserVideo {
+        height: 150px;
+        width: 200px;
+        bottom: 90px;
+        left: 10px;
+    }
+
+    .buttonContainer {
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .buttonContainer button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .buttonContainer svg {
+        font-size: 1.5rem;
+    }
+
+    .chatRoom {
+        width: calc(100vw - 40px);
+        height: calc(100vh - 120px);
+        top: 10px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lobbyContainer h2 {
+        font-size: 1.5rem;
+    }
+
+    .meetUserVideo {
+        height: 120px;
+        width: 160px;
+    }
+
+    .buttonContainer button {
+        width: 45px;
+        height: 45px;
+    }
+
+    .buttonContainer svg {
+        font-size: 1.3rem;
+    }
+
+    .chatRoom {
+        width: calc(100vw - 20px);
+        right: 10px;
+    }
+
+    .messageBubble {
+        max-width: 85%;
+    }
+}
